@@ -11,7 +11,7 @@ app.use(cookieParser())
 app.use(express.urlencoded({extended: true}))
 app.use(express.json());
 app.get("/", (req, res) => {
-    res.json({mesage: "i am working"})
+    res.json({message: "i am working"})
 })
 
 
