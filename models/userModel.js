@@ -21,7 +21,7 @@ const userSchema = mongoose.Schema({
     verificationCode: {
         type: String,
         select: false,
-    }
+    },
     verificationCodeValidation: {
         type: Number,
         select: false,
