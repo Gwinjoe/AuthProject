@@ -7,3 +7,7 @@ exports.signupSchema = Joi.object({
     password: Joi.string().required().pattern(new RegExp(passwordRegex)),
 })
 
+exports.signinSchema = Joi.object({
+    email: Joi.string().min(6).max(60).required().email({tlds: ["com", "net"]}),
+    password: Joi.string().required().pattern(new RegExp(passwordRegex)),
+})
