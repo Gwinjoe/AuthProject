@@ -2,7 +2,7 @@ const { signupSchema, signinSchema, emailSchema } = require("../middlewares/vali
 const User = require("../models/userModel");
 const { dohash, dohashValidation, hmacProcess } = require("../utils/hashing");
 const jwt = require("jsonwebtoken")
-const { transport } = require("../middlewares/sendmail")
+const transport = require("../middlewares/sendmail")
 
 exports.signup = async (req, res) => {
   const { email, password } = req.body;
@@ -96,7 +96,7 @@ exports.signout = async (req, res) => {
 exports.sendVerificationCode = async (req, res) => {
   const { email } = req.body;
   try {
-    const { error, value } = emailSchema.validate(email);
+    const { error, value } = emailSchema.validate({ email });
 
     if (error) {
       return res.status(401).json({
@@ -105,7 +105,7 @@ exports.sendVerificationCode = async (req, res) => {
       })
     }
 
-    const existingUser = await User.findOne({ email });
+    const existingUser = await User.findOne({ email }).select("+verificationCode +verificationCodeValidation");
     if (!existingUser) {
       return res.status(401).json({
         success: false,
